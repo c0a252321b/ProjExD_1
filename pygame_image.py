@@ -15,12 +15,15 @@ def main():
     kt_img = pg.transform.flip(kt_img,True,False)
     #(surface,左右反転,上下回転)-True or False
     kt_rct = kt_img.get_rect()
-    kt_rct.center = 300,200
+    kt_rct.center = 300, 200
+    
     tmr = 0
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT: return
 
+        x = tmr % 3200
+        
         key_lst = pg.key.get_pressed()
         if key_lst[pg.K_UP]: #keylstの中のK_UP(上矢印)が押されたら
             kt_rct.move_ip((0,-1)) #(0,-1)動かす
@@ -30,14 +33,16 @@ def main():
             kt_rct.move_ip((-1,0)) 
         if key_lst[pg.K_RIGHT]: 
             kt_rct.move_ip((1,0)) 
+        else:
+            kt_rct.move_ip((-1,0)) #キーが押されていないときに左に動かす
+
         
-        x = tmr % 3200
+        
         screen.blit(bg_img, [-x, 0])
         screen.blit(bg_img_flip, [-x+1600, 0])
         screen.blit(bg_img, [-x+3200, 0])
         #screen.blit(kt_img, [300,200]) 300,200の位置に画像を配置
         screen.blit(kt_img, kt_rct)
-        
         pg.display.update()
         tmr += 1        
         clock.tick(200)
