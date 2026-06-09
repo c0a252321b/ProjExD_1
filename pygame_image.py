@@ -11,18 +11,19 @@ def main():
     clock  = pg.time.Clock()
     bg_img = pg.image.load("fig/pg_bg.jpg")
     kt_img = pg.image.load("fig/3.png")
-    kt_img = pg.transform.flip(kt_img,True,True)
+    kt_img = pg.transform.flip(kt_img,True,False)
+    #(surface,左右反転,上下回転)-True or False
     tmr = 0
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT: return
 
-        screen.blit(bg_img, [0, 0])
+        screen.blit(bg_img, [tmr, 0])
         screen.blit(kt_img, [300, 200])#300,200の位置に画像を配置
 
         pg.display.update()
-        tmr += 1        
-        clock.tick(10)
+        tmr -= 1        
+        clock.tick(200)
 
 
 if __name__ == "__main__":
